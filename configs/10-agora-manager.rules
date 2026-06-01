@@ -1,0 +1,14 @@
+polkit.addRule(function(action, subject) {
+    // Detect the targeted systemd action and the specific mock service
+    if (action.id == "org.freedesktop.systemd1.manage-units" &&
+        action.lookup("unit") == "agora.service" &&
+        subject.user == "operator") {
+        
+        // Allow the operator user to start, stop, or restart the service
+        if (action.lookup("verb") == "restart" || 
+            action.lookup("verb") == "stop" || 
+            action.lookup("verb") == "start") {
+            return polkit.Result.YES; // Grant authorization immediately
+        }
+    }
+});

@@ -1,0 +1,10 @@
+# Polkit Environment
+env/
+
+boot-env.sh
+chrootpass-env.sh
+
+# Temporary files
+.DS_Store
+*~
+*.swp

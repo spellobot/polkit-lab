@@ -1,0 +1,11 @@
+[Unit]
+Description=Altice Labs AGORA Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/agora-service.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
