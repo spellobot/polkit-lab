@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Ensure the script is executed with root privileges
 if [ "$EUID" -ne 0 ]; then
   echo "❌ Error: Please run as root: sudo ./test.sh"
   exit 1
@@ -33,15 +32,12 @@ systemd-run -M $MACHINE_NAME -P -q --collect /usr/bin/systemctl restart polkit.s
 systemd-run -M $MACHINE_NAME -P -q --collect /usr/bin/systemctl restart agora.service
 
 echo "=== 4. Executing Automated Test as 'operator' ==="
-# systemd-run -M avoids PTY allocation logs and accurately bubbles up exit codes.
-# --uid=operator runs the binary natively under the target UID.
 systemd-run -M $MACHINE_NAME -P -q --collect --uid=operator /usr/bin/systemctl restart agora.service
 TEST_RESULT=$?
 
 echo "=== 5. Cleaning Up and Shutting Down Sandbox ==="
 machinectl terminate $MACHINE_NAME 2>/dev/null
 
-# Evaluate policy outcome based on the true command exit status
 if [ $TEST_RESULT -eq 0 ]; then
   echo -e "\n🟢 SUCCESS: Polkit allowed 'operator' to restart the service without password!"
 else

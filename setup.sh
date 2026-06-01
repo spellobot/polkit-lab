@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Ensure the script is executed with root privileges
 if [ "$EUID" -ne 0 ]; then
   echo "❌ Error: Please run as root: sudo ./setup.sh"
   exit 1
@@ -49,7 +48,6 @@ fi
 echo "=== 3. Bootstraping Minimal Linux Rootfs ==="
 eval $BOOTSTRAP_CMD
 
-# Fix for Debian/Ubuntu/Fedora environments to ensure modern systemd layout
 mkdir -p "$LAB_DIR/etc/polkit-1/rules.d"
 mkdir -p "$LAB_DIR/usr/local/bin"
 mkdir -p "$LAB_DIR/etc/systemd/system"
@@ -67,7 +65,6 @@ else
 fi
 
 echo "=== 5. Setting Passwords (Non-interactive fallback) ==="
-# Define passwords padrão de forma direta para evitar desfasamento do tty do chroot
 echo "root:root" | chroot "$LAB_DIR" chpasswd
 echo "operator:123" | chroot "$LAB_DIR" chpasswd
 
