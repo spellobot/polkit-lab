@@ -8,6 +8,7 @@ An isolated environment to test and verify Polkit (PolicyKit) configurations usi
 
 Run the automated setup script to detect your host OS, install necessary dependencies (`systemd-container`, `polkit`, etc.), bootstrap a minimal root filesystem, and configure the default users:
 
+> Arch Linux; Ubuntu/Debian; Fedora
 ```bash
 sudo ./setup.sh
 ```
