@@ -61,3 +61,20 @@ sudo systemd-run -M polkit-lab -P -q --collect --uid=operator /usr/bin/systemctl
   ```bash
   systemctl stop polkit.service
   ```
+
+---
+
+## Repository Structure
+
+```text
+.
+├── configs/
+│   ├── 10-agora-manager.rules   # Polkit policy rules definition
+│   └── agora.service            # Systemd service unit descriptor
+├── scripts/
+│   └── agora-service.sh         # Target mock script executed by the service
+├── README.md
+├── setup.sh                     # Cross-distro host dependencies & rootfs bootstrap
+└── test.sh                      # Automated testing orchestrator
+```
+
